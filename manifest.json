@@ -1,0 +1,12 @@
+{
+    "name": "Directory Index Finder",
+    "description": "Find naked directory index",
+    "version": "0.0.1",
+    "background_page": "background.html",
+    "permissions": [
+      "notifications",
+      "webRequest",
+      "tabs",
+      "*://*/*"
+    ]
+}
