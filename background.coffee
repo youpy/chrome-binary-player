@@ -49,10 +49,13 @@ audible = (url) ->
   request.send(null)
 
 listener = (details) ->
-  details.responseHeaders.forEach (header) ->
-    if header.name == "Content-Type" && contentTypeRegexp.test(header.value) && !urls[details.url]
-      urls[details.url] = true
-      audible(details.url)
+  if details.method == 'GET'
+    details.responseHeaders.forEach (header) ->
+      if header.name == "Content-Type" &&
+          contentTypeRegexp.test(header.value) &&
+          !urls[details.url]
+        urls[details.url] = true
+        audible(details.url)
 
 filter =
   urls: [
