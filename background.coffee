@@ -1,5 +1,4 @@
 contentTypeRegexp = /(image|text)\//
-urls = {}
 cxt = new webkitAudioContext
 voices = [
   cxt.createBufferSource()
@@ -49,12 +48,12 @@ audible = (url) ->
   request.send(null)
 
 listener = (details) ->
-  if details.method == 'GET'
+  # tabId is set to -1 if the request isn't related to a tab
+  # http://code.google.com/chrome/extensions/trunk/webRequest.html
+  if details.tabId > 0 && details.method == 'GET'
     details.responseHeaders.forEach (header) ->
       if header.name == "Content-Type" &&
-          contentTypeRegexp.test(header.value) &&
-          !urls[details.url]
-        urls[details.url] = true
+          contentTypeRegexp.test(header.value)
         audible(details.url)
 
 filter =
