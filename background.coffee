@@ -1,5 +1,5 @@
-contentTypeRegexp = /(image|text)\//
-cxt = new webkitAudioContext
+contentTypeRegexp = /(image|text|application)\//
+cxt = new AudioContext
 voices = [
   cxt.createBufferSource()
   cxt.createBufferSource()
@@ -39,12 +39,15 @@ audible = (url) ->
     arrayBuffer = request.response
     audioBuffer = new FakeAudioBuffer(arrayBuffer)
     uint8Array = Wav.createWaveFileData(audioBuffer)
-    buffer = cxt.createBuffer(uint8Array.buffer, false)
-    voice = voices[Math.floor(Math.random() * voices.length)]
-    voice.buffer = buffer
-    voice.loop = true
-    voice.connect(cxt.destination)
-    voice.noteOn(0)
+    cxt.decodeAudioData(
+      uint8Array.buffer
+      (buffer) ->
+        voice = voices[Math.floor(Math.random() * voices.length)]
+        voice.buffer = buffer
+        voice.loop = true
+        voice.connect(cxt.destination)
+        voice.start(0)
+    )
   request.send(null)
 
 listener = (details) ->

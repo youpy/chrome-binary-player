@@ -1,8 +1,15 @@
 {
     "name": "]]]]]]]]]]]]]]]]]",
     "description": "[[[[[[[[[[[[[[[[[[[[[[[",
+    "manifest_version": 2,
     "version": "0.0.4",
-    "background_page": "background.html",
+    "background": {
+        "scripts": [
+            "wav.js",
+            "jquery.min.js",
+            "background.js"
+        ]
+    },
     "permissions": [
       "webRequest",
       "*://*/*"
