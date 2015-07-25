@@ -2,7 +2,7 @@
     "name": "]]]]]]]]]]]]]]]]]",
     "description": "[[[[[[[[[[[[[[[[[[[[[[[",
     "manifest_version": 2,
-    "version": "0.0.4",
+    "version": "0.0.5",
     "background": {
         "scripts": [
             "wav.js",
