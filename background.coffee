@@ -42,7 +42,17 @@ audible = (url) ->
     cxt.decodeAudioData(
       uint8Array.buffer
       (buffer) ->
-        voice = voices[Math.floor(Math.random() * voices.length)]
+        index = Math.floor(Math.random() * voices.length)
+
+        voice = voices[index]
+        try
+          voice.start(0)
+        catch e
+
+        voice.stop(cxt.currentTime)
+        voice.disconnect()
+
+        voice = voices[index] = cxt.createBufferSource()
         voice.buffer = buffer
         voice.loop = true
         voice.connect(cxt.destination)
